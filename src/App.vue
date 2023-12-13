@@ -15,7 +15,6 @@
       <div class="weather-wrap" v-if="weather.main">
         <div class="location-box">
           <div class="location">
-            <span>Location:</span>
             {{ weather.name }}, {{ weather.sys.country }}
           </div>
           <div class="date">
@@ -33,11 +32,11 @@
         </div>
       </div>
 
-      <!-- <snowFall :amount="900" :size="2" :speed="50" :wind="1" :opacity="0.8" :swing="1" :image="null" :zIndex="null"
-        :resize="true" color="#5c5c8a" /> -->
-
       <floatCloude v-if="(typeof weather.main != 'undefined' && weather.weather[0].main == 'Clouds')" />
 
+      <rainFall v-else-if="(typeof weather.main != 'undefined' && weather.weather[0].main == 'Rain')" :amount="300"
+        :size="1" :speed="50" :wind="1" :opacity="0.01" :swing="1" :image="null" :zIndex="null" :resize="true"
+        color="#5c5c8a" />
 
       <snowFall v-else-if="typeof weather.main != 'undefined' && weather.main.temp < 0" :amount="50" :size="5"
         :speed="1.5" :wind="1" :opacity="0.8" :swing="1" :image="null" :zIndex="null" :resize="true" color="#fff" />
@@ -51,6 +50,7 @@
 
 import snowFall from './components/snowFall.vue';
 import floatCloude from './components/floatingCloude.vue';
+import rainFall from './components/rainFall.vue';
 
 export default {
   name: 'App',
@@ -58,6 +58,7 @@ export default {
   components: {
     snowFall,
     floatCloude,
+    rainFall,
   },
   data() {
     return {
