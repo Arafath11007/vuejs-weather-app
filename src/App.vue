@@ -38,8 +38,8 @@
         :size="1" :speed="50" :wind="1" :opacity="0.01" :swing="1" :image="null" :zIndex="null" :resize="true"
         color="#5c5c8a" />
 
-      <snowFall v-else-if="typeof weather.main != 'undefined' && weather.main.temp < 0" :amount="50" :size="5"
-        :speed="1.5" :wind="1" :opacity="0.8" :swing="1" :image="null" :zIndex="null" :resize="true" color="#fff" />
+      <snowFall v-if="typeof weather.main != 'undefined' && weather.main.temp < -10" :amount="50" :size="5" :speed="1.5"
+        :wind="1" :opacity="0.8" :swing="1" :image="null" :zIndex="null" :resize="true" color="#fff" />
 
     </main>
 
