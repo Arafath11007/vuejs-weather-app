@@ -1,7 +1,8 @@
 <template>
-  <div class="snowfall"></div>
+  <!-- <div class="snowfall"></div>
 
-  <div class="snowflake"></div>
+  <div class="snowflake"></div> -->
+
 
   <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp > 10 ? 'warm' : ''">
 
@@ -10,17 +11,37 @@
         <input type="text" class="search-bar" placeholder="Search...." v-model="query" @keypress="fetchWeather">
       </div>
 
-      <div class="weather-wrap" v-if="typeof weather.main != 'undefined'">
+
+      <div class="weather-wrap" v-if="weather.main">
         <div class="location-box">
-          <div class="location">{{ weather.name }}, {{ weather.sys.country }}</div>
-          <div class="date">{{ dateBuilder() }} </div>
+          <div class="location">
+            <span>Location:</span>
+            {{ weather.name }}, {{ weather.sys.country }}
+          </div>
+          <div class="date">
+            {{ dateBuilder() }}
+          </div>
         </div>
 
         <div class="weather-box">
-          <div class="temp">{{ Math.round(weather.main.temp) }}&deg;c</div>
-          <div class="weather">{{ weather.weather[0].main }}</div>
+          <div class="temp">
+            {{ Math.round(weather.main.temp) }}°C
+          </div>
+          <div class="weather">
+            {{ weather.weather[0].main }}
+          </div>
         </div>
       </div>
+
+      <!-- <snowFall :amount="900" :size="2" :speed="50" :wind="1" :opacity="0.8" :swing="1" :image="null" :zIndex="null"
+        :resize="true" color="#5c5c8a" /> -->
+
+      <floatCloude v-if="(typeof weather.main != 'undefined' && weather.weather[0].main == 'Clouds')" />
+
+
+      <snowFall v-else-if="typeof weather.main != 'undefined' && weather.main.temp < 0" :amount="50" :size="5"
+        :speed="1.5" :wind="1" :opacity="0.8" :swing="1" :image="null" :zIndex="null" :resize="true" color="#fff" />
+
     </main>
 
   </div>
@@ -28,10 +49,15 @@
 
 <script>
 
+import snowFall from './components/snowFall.vue';
+import floatCloude from './components/floatingCloude.vue';
+
 export default {
   name: 'App',
 
   components: {
+    snowFall,
+    floatCloude,
   },
   data() {
     return {
@@ -222,14 +248,24 @@ main {
 }
 
 @keyframes fall1 {
-  0% { top: 0; }
-  100% { top: 100vh; opacity: 0; }
+  0% {
+    top: 0;
+  }
+
+  100% {
+    top: 100vh;
+    opacity: 0;
+  }
 }
 
 @keyframes fall2 {
-  0% { top: -50vh; }
-  100% { top: 150vh; opacity: 0; }
+  0% {
+    top: -50vh;
+  }
+
+  100% {
+    top: 150vh;
+    opacity: 0;
+  }
 }
-
-
 </style>
